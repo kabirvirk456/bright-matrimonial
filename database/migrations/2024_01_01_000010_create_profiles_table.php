@@ -20,6 +20,13 @@ class CreateProfilesTable extends Migration
             $table->unsignedBigInteger('state_id')->nullable();
             $table->unsignedBigInteger('mother_tongue_id')->nullable();
 
+            // Add foreign key constraints
+$table->foreign('caste_id')->references('id')->on('castes')->onDelete('set null');
+$table->foreign('religion_id')->references('id')->on('religions')->onDelete('set null');
+$table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
+$table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
+$table->foreign('mother_tongue_id')->references('id')->on('mother_tongues')->onDelete('set null');
+
             // Old string columns for data safety (optional to remove later)
             $table->string('religion')->nullable();
             $table->string('mother_tongue')->nullable();
