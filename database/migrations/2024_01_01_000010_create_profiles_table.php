@@ -20,13 +20,6 @@ class CreateProfilesTable extends Migration
             $table->unsignedBigInteger('state_id')->nullable();
             $table->unsignedBigInteger('mother_tongue_id')->nullable();
 
-            // Add foreign key constraints
-$table->foreign('caste_id')->references('id')->on('castes')->onDelete('set null');
-$table->foreign('religion_id')->references('id')->on('religions')->onDelete('set null');
-$table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
-$table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
-$table->foreign('mother_tongue_id')->references('id')->on('mother_tongues')->onDelete('set null');
-
             // Old string columns for data safety (optional to remove later)
             $table->string('religion')->nullable();
             $table->string('mother_tongue')->nullable();
@@ -61,11 +54,10 @@ $table->foreign('mother_tongue_id')->references('id')->on('mother_tongues')->onD
 
             // Horoscope
             $table->string('birth_place')->nullable();
-$table->date('birth_date')->nullable();
-$table->string('birth_time')->nullable();
-$table->string('zodiac_sign')->nullable();
-$table->string('manglik_dosh')->nullable();
-
+            $table->date('birth_date')->nullable();
+            $table->string('birth_time')->nullable();
+            $table->string('zodiac_sign')->nullable();
+            $table->string('manglik_dosh')->nullable();
 
             // Likes
             $table->text('hobbies')->nullable();
@@ -88,7 +80,7 @@ $table->string('manglik_dosh')->nullable();
 
             $table->timestamps();
 
-            // Foreign key constraints (optional but recommended)
+            // Only ONE set of foreign keys (correct way)
             $table->foreign('caste_id')->references('id')->on('castes')->nullOnDelete();
             $table->foreign('religion_id')->references('id')->on('religions')->nullOnDelete();
             $table->foreign('city_id')->references('id')->on('cities')->nullOnDelete();
