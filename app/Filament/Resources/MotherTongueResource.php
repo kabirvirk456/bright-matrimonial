@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\MotherTongueResource\Pages;
+use App\Models\MotherTongue;
+use Filament\Forms;
+use Filament\Resources\Resource;
+use Filament\Tables;
+
+class MotherTongueResource extends Resource
+{
+    protected static ?string $model = MotherTongue::class;
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationGroup = 'Master Data';
+
+    public static function form(Forms\Form $form): Forms\Form
+    {
+        return $form->schema([
+            Forms\Components\TextInput::make('name')
+                ->required()
+                ->maxLength(100),
+        ]);
+    }
+
+    public static function table(Tables\Table $table): Tables\Table
+    {
+        return $table->columns([
+                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('created_at')->date('d-M-Y'),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ]);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListMotherTongues::route('/'),
+            'create' => Pages\CreateMotherTongue::route('/create'),
+            'edit' => Pages\EditMotherTongue::route('/{record}/edit'),
+        ];
+    }
+}
