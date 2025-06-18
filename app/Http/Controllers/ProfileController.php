@@ -38,7 +38,12 @@ class ProfileController extends Controller
         $profile = $user->profile;
 
         $religions = Religion::orderBy('name')->pluck('name', 'id');
-        $castes = Caste::orderBy('name')->pluck('name', 'id');
+       $castes = [];
+if ($profile && $profile->religion_id) {
+    $castes = Caste::where('religion_id', $profile->religion_id)
+                   ->orderBy('name')->pluck('name', 'id')->toArray();
+}
+
         $states = State::orderBy('name')->pluck('name', 'id');
         $cities = City::orderBy('name')->pluck('name', 'id');
         $motherTongues = MotherTongue::orderBy('name')->pluck('name', 'id');
